@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <!-- Подключение Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        hr {
+            border: none;
+            background-color: #000;
+            height: 2px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        .main {
+            margin: 40px 0;
+        }
+
+        /* Увеличение заголовка при наведении */
+        h2:hover {
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        /* Плавное изменение фона параграфа */
+        p {
+            transition: background-color 0.5s ease;
+        }
+
+        p.clicked {
+            background-color: lightblue;
+        }
+
+        /* Плавное появление таблицы */
+        #lectureTable {
+            visibility: hidden;  /* Скрыто по умолчанию */
+            opacity: 0;  /* Полностью прозрачное */
+            transform: translateY(-20px);  /* Начальная позиция смещена вверх */
+            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0.5s; /* Плавные переходы */
+        }
+
+        #lectureTable.show {
+            visibility: visible;  /* Показываем таблицу */
+            opacity: 1;  /* Делаем таблицу видимой */
+            transform: translateY(0);  /* Сбрасываем смещение */
+        }
+
+        /* Вращение фото студента */
+        .student-photo {
+            width: 100px;
+            height: 100px;
+            transition: transform 0.5s ease;
+        }
+
+        .student-photo:hover {
+            transform: rotate(360deg);
+        }
+
+        /* Анимация для сообщения формы */
+        .form-message {
+            transition: color 0.3s ease;
+        }
+
+        .form-message.submitted {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="bg-dark text-white py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <img src="img/git.png" alt="logo" style="max-height: 50px;">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="#">ИГРОВЫЕ PC</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">РАБОЧИЕ СТАНЦИИ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">СЕРВЕРЫ</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">КОНФИГУРАТОР</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Игровой ПК</a></li>
+                                <li><a class="dropdown-item" href="#">Рабочая станция</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#">УСЛУГИ</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <a href="#" class="btn btn-warning">Заказать звонок</a>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="container my-4">
+        <div class="row">
+            <!-- Сайдбар -->
+            <aside class="col-md-3">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="#section1">Навигация по странице</a></li>
+                    <li class="list-group-item"><a href="Первая страница.html">Первая страница</a></li>
+                    <li class="list-group-item"><a href="Вторая страница.html">Вторая страница</a></li>
+                </ul>
+            </aside>
+
+            <!-- Контент -->
+            <div class="col-md-9">
+                <h2 id="lectures" onclick="alert('Вы кликнули на заголовок - так держать!')">Сервисы</h2>
+                <p onclick="changeBackgroundColor(this)">Здесь вы можете найти различное оборудование для ваших нужд.</p>
+                <div class="row g-4">
+                    <!-- Таблица -->
+                    <h3>Практики</h3>
+                    <button class="btn btn-primary" id="btnSemester1">Посмотреть практики первого семестра</button>
+                    <table class="table table-bordered mt-3" id="lectureTable">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Тема</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Содержимое таблицы заполняется динамически -->
+                        </tbody>
+                    </table>
+                    <button class="btn btn-secondary mt-3" id="btnSemester2" style="display: none;">Посмотреть практики второго семестра</button>
+
+                    <!-- Аккордеон -->
+                    <h3>Дополнительная информация</h3>
+                    <div class="accordion" id="infoAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    О компании
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#infoAccordion">
+                                <div class="accordion-body">
+                                    Мы предоставляем качественные сервисы и оборудование.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Фото студента -->
+                    <h3>Фото студента</h3>
+                    <img src="student.jpg" alt="Студент" class="student-photo" id="studentPhoto" onclick="changePhoto()" ondblclick="alert('Не налегай, у меня не так много любимых преподавателей')">
+
+                    <!-- Видео -->
+                    <h3>Видео-презентация</h3>
+                    <div class="ratio ratio-16x9">
+                        <iframe 
+                            src="https://rutube.ru/play/embed/e3786026374ee2da8db01c373f2bb" 
+                            title="Видео"
+                            width="720"
+                            height="405"
+                            frameborder="0"
+                            allow="clipboard-write; autoplay"
+                            webkitallowfullscreen
+                            mozallowfullscreen
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <!-- PDF -->
+                    <h3>Документация</h3>
+                    <div class="ratio ratio-4x3">
+                        <embed src="pr3.pdf" type="application/pdf">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="bg-dark text-white py-3 text-center">
+        <p>&copy; 2024 Все права защищены.</p>
+        <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
+            <img src="img/vk.png" width="30" alt="VK">
+        </a>
+    </footer>
+
+    <script>
+        const semester1Topics = [
+            "Основы языка HTML",
+            "Углубленное изучение HTML"
+        ];
+
+        const semester2Topics = [
+            "Базовое бэкенд-приложение",
+            "HTTP-запросы",
+            "JSON и работа с ним",
+            "HTTP-ответы",
+            "Проектирование API",
+            "Роутинг и его настройка",
+            "NoSQL базы данных",
+            "Обеспечение авторизации и доступа пользователей",
+            "Работа сторонних сервисов уведомления и авторизации",
+            "Основы ReactJS",
+            "Работа с компонентами динамической DOM",
+            "Использование хуков в React",
+            "Основы микросервисной архитектуры",
+            "Разработка классических модулей веб-приложений",
+            "Разработка классических модулей веб-приложений"
+        ];
+
+        const lectureTable = document.getElementById('lectureTable');
+        const tableBody = document.getElementById('tableBody');
+        const btnSemester1 = document.getElementById('btnSemester1');
+        const btnSemester2 = document.getElementById('btnSemester2');
+
+        function populateTable(topics) {
+            tableBody.innerHTML = '';
+            topics.forEach((topic, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${index + 1}</td><td>${topic}</td>`;
+                tableBody.appendChild(row);
+            });
+        }
+
+        btnSemester1.addEventListener('click', () => {
+            populateTable(semester1Topics);
+            lectureTable.classList.add('show');
+            btnSemester1.style.display = 'none';
+            btnSemester2.style.display = 'inline-block';
+        });
+
+        btnSemester2.addEventListener('click', () => {
+            populateTable(semester2Topics);
+        });
+        function showLectures() {
+            const table = document.getElementById('lectureTable');
+             table.classList.add('show');  // Добавляем класс show для плавного отображения
+        }
+
+
+        function changeBackgroundColor(paragraph) {
+            paragraph.classList.add('clicked');
+        }
+
+    </script>
+</body>
+</html>
